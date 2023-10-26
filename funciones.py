@@ -1,6 +1,5 @@
 import pandas as pd
-import json
-from fastapi import FastAPI
+
 
 df_games = pd.read_parquet('./data/steam_games2.parquet')
 df_items = pd.read_parquet('./data/user_items.parquet')
