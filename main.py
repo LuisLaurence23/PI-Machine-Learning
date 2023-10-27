@@ -1,7 +1,10 @@
 
 from fastapi import FastAPI
 #from fastapi.encoders import jsonable_encoder
-from funciones import developer_reviews_analysis#,UserForGenrep,best_developer_yearp,userdata2,developer
+from funciones import developer_reviews_analysis
+#UserForGenrep
+# best_developer_yearp
+# userdata2,developer
 
 app = FastAPI()
 
