@@ -17,9 +17,9 @@ merged_dff=merged_df[['year','recommend','sentiment_analysis','developer','app_n
 
 
 #userdata(user_id)
-#merged_reviews_games = df_reviews.merge(df_games[['item_id', 'price']])
-#merged_reviews_games.drop(columns=['helpful','posted_year',"sentiment_analysis"], inplace=True)
-#merged_reviews_games['item_id'] = merged_reviews_games['item_id'].astype('int32')
+merged_reviews_games = df_reviews.merge(df_games[['item_id', 'price']])
+merged_reviews_games.drop(columns=['helpful','posted_year',"sentiment_analysis"], inplace=True)
+merged_reviews_games['item_id'] = merged_reviews_games['item_id'].astype('int32')
 
 
 #def developer(desarrollador:str)
@@ -61,12 +61,12 @@ def best_developer_yearp(year):
 
 
 
-'''
+
 def userdata2(user_id):
     # Filtrar los datos para el usuario especificado
     user_data = merged_reviews_games[merged_reviews_games['user_id'] == user_id]
 
-    user_items = df_items[df_items['user_id'] == user_id]
+    #user_items = user_data[user_data['user_id'] == user_id]
 
     # Calcular la cantidad de dinero gastado por el usuario
     dinero_gastado = user_data['price'].sum()
@@ -76,7 +76,7 @@ def userdata2(user_id):
     porcentaje_recomendacion = recomendacion / len(user_data) * 100
 
     # Calcular la cantidad de items
-    cantidad_de_items = user_items['item_id'].nunique()
+    cantidad_de_items = user_data['item_id'].nunique()
 
     # Crear un diccionario con los resultados
     resultados = {
@@ -84,11 +84,11 @@ def userdata2(user_id):
         'Porcentaje de recomendación': porcentaje_recomendacion,
         'Cantidad de items': cantidad_de_items
     }
-
+    del user_data, dinero_gastado, recomendacion, porcentaje_recomendacion, cantidad_de_items
     return resultados
     
     
-''' 
+
 
 def developer(desarrollador):
     df_developer = df_games[df_games["developer"] == desarrollador]
