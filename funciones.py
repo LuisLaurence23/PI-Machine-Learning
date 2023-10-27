@@ -87,7 +87,7 @@ def userdata2(user_id):
     return resultados
     
     
-
+''' 
 
 def developer(desarrollador):
     df_developer = df_games[df_games["developer"] == desarrollador]
@@ -116,10 +116,11 @@ def developer(desarrollador):
 
     # Se convierte el df en diccionario
     diccionario = df1.to_dict(orient="records")
+    del df_developer, items_year, df_dev_free, free_items, free_proportion, df1
     return diccionario
 
 
-''' 
+
 
 def developer_reviews_analysis(desarrolladora):
     desarrolladores=analisis_f[analisis_f['developer'] == desarrolladora]

@@ -4,7 +4,8 @@ from fastapi import FastAPI
 from funciones import developer_reviews_analysis
 #UserForGenrep
 # best_developer_yearp
-# userdata2,developer
+# userdata2
+from funciones import developer
 
 app = FastAPI()
 
@@ -41,13 +42,14 @@ async def userdata_handler(user_id: str):
         return {"error": str(e)}
 
 
+'''
 
 @app.get("/developer/{desarrollador}")
 async def developer_def(desarrollador: str):
     result2 = developer(desarrollador)
     return result2 
 
-'''
+
 @app.get("/developer_reviews/{desarrolladora}")
 async def developer_def(desarrolladora: str):
     result2 = developer_reviews_analysis(desarrolladora)
