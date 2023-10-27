@@ -2,7 +2,7 @@ import pandas as pd
 
 
 df_games = pd.read_parquet('./data/steam_games2.parquet')
-df_items = pd.read_parquet('./data/user_items.parquet')
+#df_items = pd.read_parquet('./data/user_items.parquet')
 df_reviews = pd.read_parquet('./data/user_reviews.parquet')
 
 
