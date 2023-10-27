@@ -1,7 +1,7 @@
 
 from fastapi import FastAPI
 #from fastapi.encoders import jsonable_encoder
-from funciones import UserForGenrep,best_developer_yearp,userdata2,developer,developer_reviews_analysis
+from funciones import developer_reviews_analysis#,UserForGenrep,best_developer_yearp,userdata2,developer
 
 app = FastAPI()
 
@@ -9,7 +9,7 @@ app = FastAPI()
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
-
+''' 
 @app.get("/UserForGenre/{genero}")
 async def UserForGenre(genero: str):
     try:
@@ -44,7 +44,7 @@ async def developer_def(desarrollador: str):
     result2 = developer(desarrollador)
     return result2 
 
-
+'''
 @app.get("/developer_reviews/{desarrolladora}")
 async def developer_def(desarrolladora: str):
     result2 = developer_reviews_analysis(desarrolladora)

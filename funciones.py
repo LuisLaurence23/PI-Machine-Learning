@@ -7,27 +7,27 @@ df_reviews = pd.read_parquet('./data/user_reviews.parquet')
 
 
 #UserForGenrep(genero)
-df_marge_item = pd.merge(df_games , df_items,on="item_id" )
-df_nuevo = df_marge_item.drop(columns=["item_id","app_name","price","developer","items_count","item_name","playtime_2weeks"])
+#df_marge_item = pd.merge(df_games , df_items,on="item_id" )
+#df_nuevo = df_marge_item.drop(columns=["item_id","app_name","price","developer","items_count","item_name","playtime_2weeks"])
 
 #best_developer_yearp(year)
 merged_df = pd.merge(df_reviews, df_games, on='item_id')
 merged_df = merged_df.rename(columns={'posted_year': 'year'})
-merged_dff=merged_df[['year','recommend','sentiment_analysis','developer','app_name']]
+#merged_dff=merged_df[['year','recommend','sentiment_analysis','developer','app_name']]
 
 
 #userdata(user_id)
-merged_reviews_games = df_reviews.merge(df_games[['item_id', 'price']])
-merged_reviews_games.drop(columns=['helpful','posted_year',"sentiment_analysis"], inplace=True)
-merged_reviews_games['item_id'] = merged_reviews_games['item_id'].astype('int32')
+#merged_reviews_games = df_reviews.merge(df_games[['item_id', 'price']])
+#merged_reviews_games.drop(columns=['helpful','posted_year',"sentiment_analysis"], inplace=True)
+#merged_reviews_games['item_id'] = merged_reviews_games['item_id'].astype('int32')
 
 
 #def developer(desarrollador:str)
-df_marge_desarrollador_final= df_marge_item[["item_id", "price","developer","release_year"]]
+#df_marge_desarrollador_final= df_marge_item[["item_id", "price","developer","release_year"]]
 
 #developer_reviews_analysis(desarrollador)
 analisis_f= merged_df[['developer','sentiment_analysis']]
-
+'''
 def UserForGenrep(genero):
     df_genre = df_nuevo[df_nuevo[genero] == 1] #llamo el genero
     usur_mas_horas = df_genre.groupby("user_id")["playtime_forever"].sum().idxmax() #usuario con más horas de juego en el genero
@@ -119,7 +119,7 @@ def developer(desarrollador):
     return diccionario
 
 
-
+''' 
 
 def developer_reviews_analysis(desarrolladora):
     desarrolladores=analisis_f[analisis_f['developer'] == desarrolladora]
@@ -135,4 +135,5 @@ def developer_reviews_analysis(desarrolladora):
             'negativas': cantidad_negativas
         }
     }
+    del desarrolladores, df_positivas, df_negativas, cantidad_positivas, cantidad_negativas
     return resultados
