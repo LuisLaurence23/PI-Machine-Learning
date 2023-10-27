@@ -13,7 +13,7 @@ df_reviews = pd.read_parquet('./data/user_reviews.parquet')
 #best_developer_yearp(year)
 merged_df = pd.merge(df_reviews, df_games, on='item_id')
 merged_df = merged_df.rename(columns={'posted_year': 'year'})
-#merged_dff=merged_df[['year','recommend','sentiment_analysis','developer','app_name']]
+merged_dff=merged_df[['year','recommend','sentiment_analysis','developer','app_name']]
 
 
 #userdata(user_id)
@@ -44,6 +44,7 @@ def UserForGenrep(genero):
 
     return {"Usuario con más horas jugadas": usur_mas_horas, "Horas jugadas por año": Horas_por_año}
 
+'''
 
 def best_developer_yearp(year):
     df_year = merged_dff[merged_dff['year'] == year]
@@ -60,7 +61,7 @@ def best_developer_yearp(year):
 
 
 
-
+'''
 def userdata2(user_id):
     # Filtrar los datos para el usuario especificado
     user_data = merged_reviews_games[merged_reviews_games['user_id'] == user_id]

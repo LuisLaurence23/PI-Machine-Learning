@@ -3,7 +3,7 @@ from fastapi import FastAPI
 #from fastapi.encoders import jsonable_encoder
 from funciones import developer_reviews_analysis
 #UserForGenrep
-# best_developer_yearp
+from funciones import best_developer_yearp
 # userdata2
 from funciones import developer
 
@@ -21,7 +21,7 @@ async def UserForGenre(genero: str):
         return result
     except Exception as e:
         return {"error": str(e)}
-    
+    '''
     
 @app.get("/best_developer_year/{year}")
 async def Best_developer_year(year: str):
@@ -32,7 +32,7 @@ async def Best_developer_year(year: str):
     except Exception as e:
         return {"error": str(e)}
 
-
+''' 
 @app.get("/userdata/{user_id}")
 async def userdata_handler(user_id: str):
     try:
