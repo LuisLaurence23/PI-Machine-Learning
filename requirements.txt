@@ -3,3 +3,7 @@ nltk
 pandas
 pyarrow
 uvicorn
+matpltlib
+surprise
+pickle
+fastparquet
