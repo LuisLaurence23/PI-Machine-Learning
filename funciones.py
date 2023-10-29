@@ -7,7 +7,7 @@ import pickle
 df_games = pd.read_parquet('./data/steam_games22.parquet')
 #df_items = pd.read_parquet('./data/user_items.parquet')
 df_reviews = pd.read_parquet('./data/user_reviews.parquet')
-df_machine= pd.read_parquet('./data/machine_learning.parquet')
+df_machine= pd.read_parquet('./data/df_ML.parquet')
 
 #UserForGenrep(genero)
 #df_marge_item = pd.merge(df_games , df_items,on="item_id" )
