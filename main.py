@@ -6,6 +6,8 @@ from funciones import developer_reviews_analysis
 from funciones import best_developer_yearp
 from funciones import userdata2
 from funciones import developer
+from funciones import recomendacion_usuario2
+
 
 app = FastAPI()
 
@@ -54,3 +56,11 @@ async def developer_def(desarrollador: str):
 async def developer_def(desarrolladora: str):
     result2 = developer_reviews_analysis(desarrolladora)
     return result2 
+
+
+
+@app.get("/recomendacion_usuario/{id_usuario}")
+
+async def recomendacion_usuario(id_usuario: str):
+    result = recomendacion_usuario2(id_usuario)
+    return result

@@ -1,10 +1,13 @@
 import pandas as pd
+import pickle
 
 
-df_games = pd.read_parquet('./data/steam_games2.parquet')
+
+
+df_games = pd.read_parquet('./data/steam_games22.parquet')
 #df_items = pd.read_parquet('./data/user_items.parquet')
 df_reviews = pd.read_parquet('./data/user_reviews.parquet')
-
+df_machine= pd.read_parquet('./data/machine_learning.parquet')
 
 #UserForGenrep(genero)
 #df_marge_item = pd.merge(df_games , df_items,on="item_id" )
@@ -139,3 +142,33 @@ def developer_reviews_analysis(desarrolladora):
     }
     del desarrolladores, df_positivas, df_negativas, cantidad_positivas, cantidad_negativas
     return resultados
+
+
+
+
+
+def recomendacion_usuario2(user_id ):
+    
+    predicciones_usuario = df_machine[df_machine['user_id'] == user_id]
+
+    # Filtra los videojuegos no vistos por el usuario
+    videojuegos_no_vistos = df_machine[~df_machine['item_id'].isin(predicciones_usuario['item_id'])]
+
+    # Ordena las predicciones en orden descendente
+    videojuegos_no_vistos = videojuegos_no_vistos.sort_values(by='predicciones', ascending=False)
+
+    # Selecciona los 5 mejores videojuegos para recomendar
+    top_recomendaciones = videojuegos_no_vistos.head(5)
+
+    # Imprime las recomendaciones
+    lista_juegos=[]
+    for _ , row in top_recomendaciones.iterrows():
+        print(row['app_name'])
+        lista_juegos.append(row['app_name'])
+    return lista_juegos
+
+
+
+
+
+
