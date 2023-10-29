@@ -5,5 +5,4 @@ pyarrow
 uvicorn
 matplotlib
 surprise
-pickle
 fastparquet
