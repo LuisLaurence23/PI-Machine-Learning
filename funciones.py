@@ -7,7 +7,8 @@ import pickle
 df_games = pd.read_parquet('./data/steam_games22.parquet')
 #df_items = pd.read_parquet('./data/user_items.parquet')
 df_reviews = pd.read_parquet('./data/user_reviews.parquet')
-df_machine= pd.read_parquet('./data/df_ML.parquet')
+#df_machine= pd.read_parquet('./data/df_ML.parquet')
+df_machine= pd.read_parquet('./data/df_ML2.parquet')
 
 #UserForGenrep(genero)
 #df_marge_item = pd.merge(df_games , df_items,on="item_id" )
@@ -146,7 +147,7 @@ def developer_reviews_analysis(desarrolladora):
 
 
 
-
+''' 
 def recomendacion_usuario2(user_id ):
     
     predicciones_usuario = df_machine[df_machine['user_id'] == user_id]
@@ -167,7 +168,45 @@ def recomendacion_usuario2(user_id ):
         lista_juegos.append(row['app_name'])
     return lista_juegos
 
+'''
+with open ('./data/modelo2.pkl', 'rb') as file:
+    modelo=pickle.load(file)
 
+def recomendar_peliculas(user_id):
+    
+    listado=[]
+    diccionario = {}
+    # Crear una lista de juegos ya valorados por el usuario específico
+    juegos_valorados = df_machine[df_machine['user_id'] == user_id]['app_name'].unique()
+
+    # Crear una lista de todos los juegos disponibles
+    todos_los_juegos = df_machine['app_name'].unique()
+
+    # Crear una lista de juegos no valorados por el usuario específico
+    juegos_no_valorados = list(set(todos_los_juegos) - set(juegos_valorados))
+
+    # Generar predicciones para los juegos no valorados por el usuario
+    predicciones = [modelo.predict(user_id, juego) for juego in juegos_no_valorados]
+
+    # Ordenar las predicciones en base a la valoración y obtener los juegos recomendados
+    recomendaciones = sorted(predicciones, key=lambda x: x.est, reverse=True)[:5]  # Obtener las 5 mejores recomendaciones
+
+    # Mostrar los juegos recomendados
+    
+    for recomendacion in recomendaciones:
+        #print(f"Juego: {recomendacion.iid}")
+        listado.append(recomendacion.iid)
+        
+    
+    for i, juego in enumerate(listado, start=1):
+        opcion = f"opcion{i}"
+        diccionario[opcion] = juego
+
+    if user_id not in df_machine['user_id'].unique():
+        print("El usuario no existe")
+        return None
+    else:
+        return diccionario
 
 
 

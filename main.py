@@ -6,7 +6,8 @@ from funciones import developer_reviews_analysis
 from funciones import best_developer_yearp
 from funciones import userdata2
 from funciones import developer
-from funciones import recomendacion_usuario2
+#from funciones import recomendacion_usuario2
+from funciones import recomendar_peliculas
 
 
 app = FastAPI()
@@ -58,9 +59,16 @@ async def developer_def(desarrolladora: str):
     return result2 
 
 
-
+''' 
 @app.get("/recomendacion_usuario/{id_usuario}")
 
 async def recomendacion_usuario(id_usuario: str):
     result = recomendacion_usuario2(id_usuario)
+    return result
+    
+    '''
+
+@app.get("/recomendacion_usuario/{id_usuario}")
+async def recomendacion_usuario(id_usuario: str):
+    result = recomendar_peliculas(id_usuario)
     return result
