@@ -3,7 +3,7 @@ nltk
 pandas
 pyarrow
 uvicorn
-matpltlib
+matplotlib
 surprise
 pickle
 fastparquet
