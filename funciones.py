@@ -203,8 +203,7 @@ def recomendar_peliculas(user_id):
         diccionario[opcion] = juego
 
     if user_id not in df_machine['user_id'].unique():
-        print("El usuario no existe")
-        return None
+        return "El usuario no existe"
     else:
         return diccionario
 
