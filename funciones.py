@@ -3,12 +3,12 @@ import pickle
 
 
 
-
+#Lectura de archivos
 df_games = pd.read_parquet('./data/steam_games22.parquet')
-#df_items = pd.read_parquet('./data/user_items.parquet')
 df_reviews = pd.read_parquet('./data/user_reviews.parquet')
-#df_machine= pd.read_parquet('./data/df_ML.parquet')
 df_machine= pd.read_parquet('./data/df_ML2.parquet')
+#df_items = pd.read_parquet('./data/user_items.parquet')
+
 
 #UserForGenrep(genero)
 #df_marge_item = pd.merge(df_games , df_items,on="item_id" )
@@ -20,80 +20,18 @@ merged_df = merged_df.rename(columns={'posted_year': 'year'})
 merged_dff=merged_df[['year','recommend','sentiment_analysis','developer','app_name']]
 
 
-#userdata(user_id)
+#userdata2(user_id)
 merged_reviews_games = df_reviews.merge(df_games[['item_id', 'price']])
 merged_reviews_games.drop(columns=['helpful','posted_year',"sentiment_analysis"], inplace=True)
 merged_reviews_games['item_id'] = merged_reviews_games['item_id'].astype('int32')
 
 
-#def developer(desarrollador:str)
-#df_marge_desarrollador_final= df_marge_item[["item_id", "price","developer","release_year"]]
-
 #developer_reviews_analysis(desarrollador)
 analisis_f= merged_df[['developer','sentiment_analysis']]
-'''
-def UserForGenrep(genero):
-    df_genre = df_nuevo[df_nuevo[genero] == 1] #llamo el genero
-    usur_mas_horas = df_genre.groupby("user_id")["playtime_forever"].sum().idxmax() #usuario con más horas de juego en el genero
-    filtro_usur = df_genre[df_genre["user_id"] == usur_mas_horas] #filtramos por el usuario con mas horas jugadas
-    horas_jugXaño = filtro_usur.groupby("release_year")["playtime_forever"].sum() #horas jugadas por año 
-
-    registro = horas_jugXaño.to_dict() #paso las horas por año en diccionario
-    #del registro[0] #elimino el registro 0 que no me sirve
-    Horas_por_año = {}
-    for clave, valor in registro.items():
-        clave_formateada = f'Año: {int(clave)}'
-        valor_formateado = int(valor)
-        Horas_por_año[clave_formateada] = valor_formateado
-
-    return {"Usuario con más horas jugadas": usur_mas_horas, "Horas jugadas por año": Horas_por_año}
-
-'''
-
-def best_developer_yearp(year):
-    df_year = merged_dff[merged_dff['year'] == year]
-    df_count = df_year.loc[(df_year['recommend'] == True) & (df_year['sentiment_analysis'] == 2)].groupby('developer')['app_name'].count().reset_index()
-
-
-    top_desarrolladores = df_count.sort_values('app_name', ascending=False).head(3)['developer'].tolist()
-    
-    # Crear la lista de diccionarios
-    resultados = {f'Puesto {i+1}': desarrollador for i, desarrollador in enumerate(top_desarrolladores)}
-    
-    return resultados
 
 
 
-
-
-def userdata2(user_id):
-    # Filtrar los datos para el usuario especificado
-    user_data = merged_reviews_games[merged_reviews_games['user_id'] == user_id]
-
-    #user_items = user_data[user_data['user_id'] == user_id]
-
-    # Calcular la cantidad de dinero gastado por el usuario
-    dinero_gastado = user_data['price'].sum()
-
-    # Calcular el porcentaje de recomendación en base a reviews.recommend
-    recomendacion = (user_data['recommend'] == True).sum()
-    porcentaje_recomendacion = recomendacion / len(user_data) * 100
-
-    # Calcular la cantidad de items
-    cantidad_de_items = user_data['item_id'].nunique()
-
-    # Crear un diccionario con los resultados
-    resultados = {
-        'Cantidad de dinero gastado': dinero_gastado,
-        'Porcentaje de recomendación': porcentaje_recomendacion,
-        'Cantidad de items': cantidad_de_items
-    }
-    del user_data, dinero_gastado, recomendacion, porcentaje_recomendacion, cantidad_de_items
-    return resultados
-    
-    
-
-
+#1
 def developer(desarrollador):
     df_developer = df_games[df_games["developer"] == desarrollador]
     items_year = df_developer.groupby("release_year")["item_id"].count()
@@ -125,8 +63,66 @@ def developer(desarrollador):
     return diccionario
 
 
+#2
+def userdata2(user_id):
+    # Filtrar los datos para el usuario especificado
+    user_data = merged_reviews_games[merged_reviews_games['user_id'] == user_id]
+
+    #user_items = user_data[user_data['user_id'] == user_id]
+
+    # Calcular la cantidad de dinero gastado por el usuario
+    dinero_gastado = user_data['price'].sum()
+
+    # Calcular el porcentaje de recomendación en base a reviews.recommend
+    recomendacion = (user_data['recommend'] == True).sum()
+    porcentaje_recomendacion = recomendacion / len(user_data) * 100
+
+    # Calcular la cantidad de items
+    cantidad_de_items = user_data['item_id'].nunique()
+
+    # Crear un diccionario con los resultados
+    resultados = {
+        'Cantidad de dinero gastado': dinero_gastado,
+        'Porcentaje de recomendación': porcentaje_recomendacion,
+        'Cantidad de items': cantidad_de_items
+    }
+    del user_data, dinero_gastado, recomendacion, porcentaje_recomendacion, cantidad_de_items
+    return resultados
 
 
+
+#3
+'''
+def UserForGenrep(genero):
+    df_genre = df_nuevo[df_nuevo[genero] == 1] #llamo el genero
+    usur_mas_horas = df_genre.groupby("user_id")["playtime_forever"].sum().idxmax() #usuario con más horas de juego en el genero
+    filtro_usur = df_genre[df_genre["user_id"] == usur_mas_horas] #filtramos por el usuario con mas horas jugadas
+    horas_jugXaño = filtro_usur.groupby("release_year")["playtime_forever"].sum() #horas jugadas por año 
+
+    registro = horas_jugXaño.to_dict() #paso las horas por año en diccionario
+    #del registro[0] #elimino el registro 0 que no me sirve
+    Horas_por_año = {}
+    for clave, valor in registro.items():
+        clave_formateada = f'Año: {int(clave)}'
+        valor_formateado = int(valor)
+        Horas_por_año[clave_formateada] = valor_formateado
+
+    return {"Usuario con más horas jugadas": usur_mas_horas, "Horas jugadas por año": Horas_por_año}
+
+'''
+
+
+#4
+def best_developer_yearp(year):
+    df_year = merged_dff[merged_dff['year'] == year]
+    df_count = df_year.loc[(df_year['recommend'] == True) & (df_year['sentiment_analysis'] == 2)].groupby('developer')['app_name'].count().reset_index()
+    top_desarrolladores = df_count.sort_values('app_name', ascending=False).head(3)['developer'].tolist()
+    
+    # Crear la lista de diccionarios
+    resultados = {f'Puesto {i+1}': desarrollador for i, desarrollador in enumerate(top_desarrolladores)}
+    return resultados
+
+#5
 def developer_reviews_analysis(desarrolladora):
     desarrolladores=analisis_f[analisis_f['developer'] == desarrolladora]
     df_positivas = desarrolladores[desarrolladores['sentiment_analysis'] == 2]
@@ -147,28 +143,8 @@ def developer_reviews_analysis(desarrolladora):
 
 
 
-''' 
-def recomendacion_usuario2(user_id ):
-    
-    predicciones_usuario = df_machine[df_machine['user_id'] == user_id]
 
-    # Filtra los videojuegos no vistos por el usuario
-    videojuegos_no_vistos = df_machine[~df_machine['item_id'].isin(predicciones_usuario['item_id'])]
 
-    # Ordena las predicciones en orden descendente
-    videojuegos_no_vistos = videojuegos_no_vistos.sort_values(by='predicciones', ascending=False)
-
-    # Selecciona los 5 mejores videojuegos para recomendar
-    top_recomendaciones = videojuegos_no_vistos.head(5)
-
-    # Imprime las recomendaciones
-    lista_juegos=[]
-    for _ , row in top_recomendaciones.iterrows():
-        print(row['app_name'])
-        lista_juegos.append(row['app_name'])
-    return lista_juegos
-
-'''
 with open ('./data/modelo2.pkl', 'rb') as file:
     modelo=pickle.load(file)
 
