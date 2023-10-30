@@ -83,7 +83,7 @@ async def developer_def(desarrollador: str):             #Definimos la función,
 #-------------------------------------------------------Machine Learning------------------------------------------------------------------------
 
 '''Ingresando el id de un usuario, recibimos una lista con 5 juegos recomendados para dicho usuario.'''
-@app.get("/recomendacion_usuario/{id_usuario}")
-async def recomendacion_usuario(id_usuario: str):
+@app.get("/recomendacion_usuario/{id_usuario}")    #Hacemos el endpoint
+async def recomendacion_usuario(id_usuario: str):  #
     result = recomendar_peliculas(id_usuario)
     return result
