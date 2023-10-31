@@ -77,7 +77,10 @@ def developer(desarrollador):
     #Se eliminan los df que ya no se usan en la funcion
     del df_developer, items_year, df_dev_free, free_items, free_proportion, df1
     
-    return diccionario
+    if desarrollador not in df_games['developer'].unique():
+        return f"El desarrollador {desarrollador} no existe"
+    else:
+        return diccionario
 
 #----------------------------------------------------------------Función2----------------------------------------------------------------
 
@@ -105,7 +108,10 @@ def userdata2(user_id):
     #Se eliminan los df que ya no se usan en la funcion
     del user_data, dinero_gastado, recomendacion, porcentaje_recomendacion, cantidad_de_items
     
-    return resultados
+    if user_id not in merged_reviews_games['user_id'].unique():
+        return f"El usuario {user_id} no existe"
+    else:
+        return resultados
 
 
 #----------------------------------------------------------------Función3----------------------------------------------------------------
@@ -157,7 +163,10 @@ def best_developer_yearp(year):
     #Creamos lista de diccionarios para la respuesta
     resultados = {f'Puesto {i+1}': desarrollador for i, desarrollador in enumerate(top_desarrolladores)}
     
-    return resultados
+    if year not in merged_dff['year'].unique():
+        return f"El anio {year} no existe"
+    else:
+        return resultados
 
 
 
@@ -185,11 +194,12 @@ def developer_reviews_analysis(desarrolladora):
     
     #Se eliminan los df que ya no se usan en la funcion
     del desarrolladores, df_positivas, df_negativas, cantidad_positivas, cantidad_negativas
-    
-    #Retornamos el diccionario
-    return resultados
 
 
+    if desarrolladora not in analisis_f['developer'].unique():
+        return f"El desarrollador {desarrolladora} no existe"
+    else:
+        return resultados
 
 
 #----------------------------------------------------------------Machine Learning---------------------------------------------------------
@@ -234,7 +244,7 @@ def recomendar_peliculas(user_id):
 
     #Si el usuario no existe, se muestra el mensaje "El usuario no existe"
     if user_id not in df_machine['user_id'].unique():
-        return "El usuario no existe"
+        return f"El usuario {user_id} no existe"
     else:
         return diccionario
 
