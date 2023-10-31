@@ -29,8 +29,9 @@ Utilizamos FastAPI para establecer nuestra API y configurar los puntos finales (
 implicó la implementación en Render, lo que nos va permitir poner los datos a disposición de clientes y personas o cualquier
 otra personas las cuales estén interesadas en acceder a nuestro trabajo. En el archivo funciones.py tenemos todas las funciones 
 para poder trabajarlas en el main.py, hubo una función en particular UserforGenre la cual se necesitaba acceder al df_items,lo cual
-presenté un problema de memoria en Render ya que el límite es de 512Mb y el df lo excedía con aproximadamente 5 millones de registros.
-Dejé comentada la función tanto en funciones.py como en main.py. Esa función Solamente corre de manera local.
+presenté un problema de memoria en Render ya que el límite es de 512Mb y el df lo excedía con aproximadamente 5 millones de registros, no 
+utilicé columnas del df_items en los endpoints por dicho problema presentado.Dejé comentada la función tanto en funciones.py como en main.py.
+Esa función Solamente corre de manera local.
 
 
 Machine Learning

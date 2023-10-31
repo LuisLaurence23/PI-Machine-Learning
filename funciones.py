@@ -24,7 +24,7 @@ merged_reviews_games['item_id'] = merged_reviews_games['item_id'].astype('int32'
 #df_nuevo = df_marge_item.drop(columns=["item_id","app_name","price","developer","items_count","item_name","playtime_2weeks"])
 
 
-#Dataframes usados para el punto 4
+#Dataframes usados para el punto 4 (tomé el año de posteo)
 merged_df = pd.merge(df_reviews, df_games, on='item_id')
 merged_df = merged_df.rename(columns={'posted_year': 'year'})
 merged_dff=merged_df[['year','recommend','sentiment_analysis','developer','app_name']]
