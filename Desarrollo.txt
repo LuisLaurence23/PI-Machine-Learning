@@ -1,0 +1,45 @@
+En este documento .txt explicaré brevemente lo que se realizó en cada archivo.
+Comenzamos con el archivo de Etl:
+
+-Importamos las librerías necesarias para poder procesar los archivos
+-Tomamos los archivos en formato Json y los convertimos cada uno en un Dataframe para una mejor visualización y un mejor 
+ procesamiento con ayuda de pandas. 
+-En dos df en particular (reviews e items) observamos una columna que contenía una lista de diccionarios, realizamos el procedimiento
+ de hacer explode a dichas columnas para poder trabajarlas por separado.
+-En cada df, eliminé columnas que consideré innecesarias para los siguientes procedimientos.
+-Para las columnas que contenían por ejemplo una fecha 2012-03-23, solo nos quedamos con el año que es lo que nos interesa.
+-Se observaron filas con valores nulos/vacíos, errores en tipo de datos.
+-Se realizó la sustitución, eliminación o conversión de dichos valores en base al criterio.
+-Se realizó también una columna requerida de análisis de sentimientos a la cual colocamos el valor de 2 como positivos, 1 como neutros
+ y 0 como valores negativos.
+-Finalmente toda esa data obtenida lista para trabajarse, la almacenamos en la carpeta data. Los df fueron almacenados en
+ formato parquet, elegimos dicho formato con la finalidad de ahorrarnos peso de archivo, ya que comparado con otras opciones
+ como en csv conviene mejor el formato parquet, aparte que es de gran ayuda para ser consumidos por la aplicación de Fast Api.
+
+
+Eda
+Para en análisis exploratorio de datos, seguimos con los dataframes obtenidos en el Etl.en este punto lo afrontamos de la siguiente manera:
+Importamos las librerías necesarias para la lectura de archivos y visualizaciones como matplotlib y seaborn principalmente.
+Posteriormente nos enfocamos en observar y entender las características usando gráficos, por ejemplo nos hicimos algunas
+preguntas como cuáles son los 3 juegos con mayor recomendación, los 5 juegos con mayor tiempo jugado, los 5 mejor desarrolladores,
+etc. con el fin de implícitamente ir contestando los endpoints de nuestra Api.
+
+FastApi
+Utilizamos FastAPI para establecer nuestra API y configurar los puntos finales (endpoints) de manera efectiva. La siguiente fase
+implicó la implementación en Render, lo que nos va permitir poner los datos a disposición de clientes y personas o cualquier
+otra personas las cuales estén interesadas en acceder a nuestro trabajo. En el archivo funciones.py tenemos todas las funciones 
+para poder trabajarlas en el main.py, hubo una función en particular UserforGenre la cual se necesitaba acceder al df_items,lo cual
+presenté un problema de memoria en Render ya que el límite es de 512Mb y el df lo excedía con aproximadamente 5 millones de registros.
+Dejé comentada la función tanto en funciones.py como en main.py. Esa función Solamente corre de manera local.
+
+
+Machine Learning
+En esta fase optamos por usar el modelo SVD (Singular Value Descomposition), y usar la librería surprise que nos ayuda con
+sistemas de recomendacion. Como primer paso creamos una nueva columna llamada rating on ayuda de la columna de recomendacion y 
+análisis de sentimientos. Después se divide con datos de test y entrenamiento para utilizar SVD para el sistema de recomendación
+de juegos, colocando primero parámetros aleatorios, y calculando el rmse. Después hicimos un ajuste de hiperparámetros con
+GridSearchCV y volvimos a correr otro modelo con esos mejores hiperparámetros para posteriormente guardar ese modelo en formato pkl
+con ayuda de pickle, con el fin de utilizarlo en las funciones para ahorrarnos tiempo y consumo al momento de consumirlo en la
+API. Como resultado a este proceso de machine learning, el endpoint tuvo como objetivo pasarle un user_id y devolver 5 recomendaciones
+para dicho usuario.
+

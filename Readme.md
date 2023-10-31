@@ -79,11 +79,12 @@ La función nos devuelve lo siguiente:
 # <h1 align=center> **Entregables** </h1>
 
 ## Video
-
+- [Video demo](https://www.youtube.com/watch?v=xYK6GjuqSbs&t=9s)
 ## Archivos del Repositorio
 - [Etl-->Extracción, transformación y carga](/Etl.ipynb)
 - [Eda-->Análisis exploratorio de datos](/Eda.ipynb)
 - [Modelamiento Machine learning](/Machine_learning2.ipynb)
+- [Pasos del proyecto](/Desarrollo.txt)
 
 ## Archivos para FAST API
 - [Archivo main para FAST API](/main.py)
